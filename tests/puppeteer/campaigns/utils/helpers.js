@@ -12,18 +12,16 @@ global.scenario = (name, tests, init, close = false) => describe(name, async () 
       slowMo: 25,
       args: ['--start-maximized', '--no-sandbox', '--lang=fr-FR'],
       defaultViewport: {
-        width: 1270,
-        height: 899,
+        width: 1680,
+        height: 900,
       },
     });
     await init();
   });
+  after(async () => {
+    if(close)
+      await global.browser.close();
+  });
 
   await tests();
-
-  if (close) {
-    await after(async () => {
-      await global.browser.close();
-    });
-  }
 });
